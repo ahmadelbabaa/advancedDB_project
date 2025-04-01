@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -13,10 +14,12 @@ class Company(models.Model):
     website_url = models.URLField(max_length=200, null=True, blank=True)
     social_media = models.CharField(max_length=200)
 
+
 class GenderChoices(models.TextChoices):
-    MALE="male"
-    FEMALE="female"
-    OTHER="other"
+    MALE = "male"
+    FEMALE = "female"
+    OTHER = "other"
+
 
 class Client(models.Model):
     name = models.CharField(max_length=200)
