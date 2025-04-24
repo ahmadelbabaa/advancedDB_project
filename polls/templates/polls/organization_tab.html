@@ -1,0 +1,95 @@
+<h1>Organizations</h1>
+
+<!-- Add new organization -->
+<form method="post" style="margin-bottom: 12px;">
+  {% csrf_token %}
+  <button type="submit" name="action" value="add_organization" class="btn btn-primary">
+    <i class="fa fa-plus" style="margin-right:4px;"></i> Add New Organization
+  </button>
+</form>
+
+<!-- Search + Filters -->
+<form method="get" style="margin-bottom: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+  <input type="hidden" name="tab" value="organizations">
+  <input type="text" name="org_q" value="{{ org_query }}" placeholder="Search organizations..."
+         style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; flex: 1 1 280px;" />
+
+  <select name="org_type" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <option value="">All Types</option>
+    {% for org_type in org_type_options %}
+      {% if org_type %}
+        <option value="{{ org_type }}" {% if org_type == org_type_filter %}selected{% endif %}>{{ org_type }}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+
+  <select name="org_country" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <option value="">All Countries</option>
+    {% for country in country_options %}
+      {% if country %}
+        <option value="{{ country }}" {% if country == country_filter %}selected{% endif %}>{{ country }}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-primary" style="height: 38px;">Filter</button>
+</form>
+
+<!-- Organization Table -->
+<form method="post">
+  {% csrf_token %}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Country</th>
+        <th>Size</th>
+        <th>Revenue</th>
+        <th>Website</th>
+        <th>Social</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for org in organizations %}
+        <tr {% if request.GET.org == org.id|stringformat:"s" %}style="background:#f0f5ff"{% endif %}>
+          <td><input type="text" name="organization_name" value="{{ org.organization_name }}"></td>
+          <td><input type="text" name="type_of_organization" value="{{ org.type_of_organization }}"></td>
+          <td><input type="text" name="country_of_operation" value="{{ org.country_of_operation }}"></td>
+          <td><input type="number" name="organization_size" value="{{ org.organization_size }}"></td>
+          <td><input type="number" name="revenue_size" value="{{ org.revenue_size }}"></td>
+          <td><input type="url" name="website_url" value="{{ org.website_url }}"></td>
+          <td><input type="text" name="social_media" value="{{ org.social_media }}"></td>
+
+          <td class="actions" style="display: flex; flex-direction: column; gap: 6px; align-items: start;">
+            <!-- Save button -->
+            <button type="submit" name="action" value="update_organization"
+            class="btn btn-primary btn-match"
+            style="padding: 4px 8px; font-size: 0.75rem; height: auto;">
+              <input type="hidden" name="org_id" value="{{ org.id }}">
+              Save
+          </button>
+
+            <!-- Delete button -->
+            <button type="submit" name="action" value="delete_organization"
+            class="btn btn-danger btn-match"
+            style="padding: 4px 8px; font-size: 0.75rem; height: auto; background-color: #ef4444; color: white;"
+            onmouseover="this.style.backgroundColor='#dc2626'; this.style.color='white';"
+            onmouseout="this.style.backgroundColor='#ef4444'; this.style.color='white';">
+              <input type="hidden" name="org_id" value="{{ org.id }}">
+              Delete
+          </button>
+
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="8" style="text-align:center; color:#718096; padding:20px;">
+            No organizations found.
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</form>

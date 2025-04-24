@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INCUBATOUR</title>
+    {% load static %}
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #0a0a0a;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            max-width: 200px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .login-btn {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* Hero section */
+        .hero {
+            background-color: #d94189;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48cGF0dGVybiBpZD0icGF0dGVybiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+');
+        }
+
+        .hero-text {
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .categories {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .incubatour-title {
+            font-size: 80px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .incubatour-title .a {
+            color: #00ff9d;
+        }
+
+        .tagline {
+            font-size: 22px;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background-color: #ffde59;
+            color: #333;
+            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            background-color: #ffe273;
+        }
+
+        /* Intro section */
+        .intro-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .intro-title {
+            font-size: 40px;
+            color: #222;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: #444;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .highlight {
+            font-weight: bold;
+        }
+
+        /* Stats section */
+        .stats-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            margin: 20px;
+            width: 200px;
+        }
+
+        .stat-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* What we do section */
+        .what-we-do {
+            background-color: #f8f9fa;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 30px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+        }
+
+        /* Services section */
+        .services-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 100px;
+            gap: 40px;
+        }
+
+        .service-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-category {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .service-title {
+            font-size: 32px;
+            color: #222;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-icon {
+            margin-right: 15px;
+            color: #d94189;
+            font-size: 24px;
+        }
+
+        .service-text {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .service-button {
+            background-color: #ffde59;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .service-image {
+            flex: 1;
+            max-width: 500px;
+            height: 300px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Newsletter section */
+        .newsletter-section {
+            background-color: #d94189;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .newsletter-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .newsletter-text {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-input {
+            padding: 15px;
+            border-radius: 4px;
+            border: none;
+            width: 100%;
+            max-width: 300px;
+            font-size: 16px;
+        }
+
+        .form-button {
+            background-color: #ffde59;
+            color: #333;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Contact CTA section */
+        .contact-cta {
+            background-color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background-color: transparent;
+            color: #333;
+            border: 2px solid #ffde59;
+            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            color: white;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            height: 40px;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .copyright {
+            margin-right: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Service illustrations */
+        .service-illustration {
+            width: 100%;
+            height: 100%;
+            background-color: #d94189;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .illustration-inner {
+            width: 80%;
+            height: 80%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .illustration-quadrant {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffde59;
+            border-radius: 5px;
+        }
+
+        .illustration-quadrant:nth-child(1) {
+            background-color: #ff6699;
+        }
+
+        .illustration-quadrant:nth-child(2) {
+            background-color: #ffde59;
+        }
+
+        .illustration-quadrant:nth-child(3) {
+            background-color: #80ff80;
+        }
+
+        .illustration-quadrant:nth-child(4) {
+            background-color: #ff9933;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <!-- Try with static image -->
+            <img src="{% static 'images/incubator_logo.webp' %}" alt="Incubatour Logo" style="display: block; height: 60px; width: auto; max-width: 200px;">
+
+            <!-- Fallback SVG logo in case the image doesn't load -->
+            <div id="fallback-logo" style="display: none;">
+                <div style="position: relative; height: 60px; width: 150px; display: flex; align-items: center;">
+                    <div style="position: absolute; width: 25px; height: 25px; background: linear-gradient(135deg, #8aff5f, #39ff14); transform: rotate(45deg); left: 0; top: 20px; border-radius: 3px;"></div>
+                    <div style="position: absolute; width: 25px; height: 25px; background: linear-gradient(135deg, #ffde59, #ffa726); transform: rotate(45deg); left: 15px; top: 10px; border-radius: 3px;"></div>
+                    <div style="position: absolute; width: 25px; height: 25px; background: linear-gradient(135deg, #ff5fa2, #ff0066); transform: rotate(45deg); left: 30px; top: 0; border-radius: 3px;"></div>
+                    <h1 style="color: white; margin-left: 60px; font-weight: 300; letter-spacing: 1px; font-size: 24px;">incub<span style="color: #ff5fa2; font-weight: 400;">a</span>tour</h1>
+                </div>
+            </div>
+
+            <script>
+                // If the image fails to load, show the fallback SVG logo
+                document.querySelector('.logo img').onerror = function() {
+                    this.style.display = 'none';
+                    document.getElementById('fallback-logo').style.display = 'block';
+                };
+            </script>
+        </div>
+        <div class="nav-menu">
+            <a href="https://www.incubatour.com/somos">Who we are</a>
+            <a href="https://www.incubatour.com/servicios">Services</a>
+            <a href="https://www.incubatour.com/congreso">Congress</a>
+            <a href="https://www.incubatour.com/Recursos">Resources</a>
+            <a href="https://www.incubatour.com/contacto">Contact</a>
+        </div>
+        <a href="{% url 'relationship_system' %}" class="login-btn">Log In</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <p class="categories">{Tourism - Technology - Consulting - Projects}</p>
+            <h1 class="incubatour-title">INCUB<span class="a">A</span>TOUR</h1>
+            <p class="tagline">We provoke the madness of creators.</p>
+        </div>
+        <a href="{% url 'public_form' %}" class="cta-button">Want to learn more?</a>
+    </section>
+
+    <!-- Intro section -->
+    <section class="intro-section">
+        <h2 class="intro-title">We are a RESULTER of tourism and creative industries</h2>
+        <p class="intro-text">With more than 30 years of experience in Mexico, Colombia, and Spain, we design solutions to transform the tourism and cultural sectors through innovation, technology, education, sustainability, and strategy. We don't just advise: <span class="highlight">we solve.</span></p>
+    </section>
+
+    <!-- Stats section -->
+    <section class="stats-section">
+        <div class="stat-item">
+            <div class="stat-icon">🎓</div>
+            <h3 class="stat-number">+60,000</h3>
+            <p class="stat-text">Trained people</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">⚙️</div>
+            <h3 class="stat-number">+5,000</h3>
+            <p class="stat-text">Projects and products advised</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">🌎</div>
+            <h3 class="stat-number">3 Branches</h3>
+            <p class="stat-text">With impact throughout Latin America</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">📊</div>
+            <h3 class="stat-number">+70</h3>
+            <p class="stat-text">Executed projects</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">📅</div>
+            <h3 class="stat-number">+570</h3>
+            <p class="stat-text">Events and conferences held in Latin America</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">💰</div>
+            <h3 class="stat-number">USD $4 million</h3>
+            <p class="stat-text">managed for culture and tourism</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">🏆</div>
+            <h3 class="stat-number">20</h3>
+            <p class="stat-text">Awards for innovation and diversification</p>
+        </div>
+    </section>
+
+    <!-- What we do -->
+    <section class="what-we-do">
+        <h2 class="section-title">What we do</h2>
+        <p class="section-subtitle">We connect innovation, culture, and tourism to solve real challenges in territorial and community development processes.</p>
+    </section>
+
+    <!-- Services -->
+    <section class="services-section">
+        <!-- Service 1 -->
+        <div class="service-item">
+            <div class="service-content">
+                <p class="service-category">Planning/Innovation</p>
+                <h3 class="service-title">
+                    <span class="service-icon">🧩</span>
+                    Specialized consulting
+                </h3>
+                <p class="service-text">We design tourism and cultural products, conduct diagnostics, destination planning, and promotional strategies, and support territorial and community development processes.</p>
+                <a href="https://www.incubatour.com/" class="service-button">SEE MORE</a>
+            </div>
+            <div class="service-image">
+                <div class="service-illustration">
+                    <div class="illustration-inner">
+                        <div class="illustration-quadrant">🧩</div>
+                        <div class="illustration-quadrant">🌎</div>
+                        <div class="illustration-quadrant">🏛️</div>
+                        <div class="illustration-quadrant">💡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-item">
+            <div class="service-content">
+                <p class="service-category">Digitalization</p>
+                <h3 class="service-title">
+                    <span class="service-icon">🤖</span>
+                    Digital transformation and artificial intelligence
+                </h3>
+                <p class="service-text">We create technological solutions, automation, digital prototypes, and AI-based tools to optimize, scale, and personalize tourism processes.</p>
+                <a href="https://www.incubatour.com/" class="service-button">SEE MORE</a>
+            </div>
+            <div class="service-image">
+                <div class="service-illustration">
+                    <div class="illustration-inner">
+                        <div class="illustration-quadrant">🧠</div>
+                        <div class="illustration-quadrant">⚙️</div>
+                        <div class="illustration-quadrant">📈</div>
+                        <div class="illustration-quadrant">💻</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-item">
+            <div class="service-content">
+                <p class="service-category">Ecosystem</p>
+                <h3 class="service-title">
+                    <span class="service-icon">🔄</span>
+                    Proprietary tools and open innovation
+                </h3>
+                <p class="service-text">We have our own platforms such as TFI Calls, TFINANCIA, our eLearning INCUBATOUR, CREACO, and other resources that connect entrepreneurs with real opportunities.</p>
+                <a href="https://www.incubatour.com/" class="service-button">I WANT TO BE PART</a>
+            </div>
+            <div class="service-image">
+                <div class="service-illustration">
+                    <div class="illustration-inner">
+                        <div class="illustration-quadrant">💡</div>
+                        <div class="illustration-quadrant">🖥️</div>
+                        <div class="illustration-quadrant">🌱</div>
+                        <div class="illustration-quadrant">🔗</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-item">
+            <div class="service-content">
+                <p class="service-category">Congress/Trade Missions</p>
+                <h3 class="service-title">
+                    <span class="service-icon">🌐</span>
+                    High-impact events and experiences
+                </h3>
+                <p class="service-text">We organize the Ibero-American Tourism Product Congress, trade fairs, hackathons, trade missions, and training experiences that transform the tourism ecosystem.</p>
+                <a href="https://www.incubatour.com/" class="service-button">SEE MORE</a>
+            </div>
+            <div class="service-image">
+                <div class="service-illustration">
+                    <div class="illustration-inner">
+                        <div class="illustration-quadrant">👥</div>
+                        <div class="illustration-quadrant">🗣️</div>
+                        <div class="illustration-quadrant">🌎</div>
+                        <div class="illustration-quadrant">📅</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <h2 class="newsletter-title">Become part of our community</h2>
+        <p class="newsletter-text">Sign up for our newsletter:</p>
+        <form class="newsletter-form">
+            <input type="text" class="form-input" placeholder="Name">
+            <input type="email" class="form-input" placeholder="E-mail">
+            <button type="submit" class="form-button">Sign Up</button>
+        </form>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <h2 class="cta-title">Do you have an idea? A community? A destination?</h2>
+        <p class="cta-subtitle">We help you <strong>transform it into real impact</strong>.</p>
+        <a href="https://www.incubatour.com/" class="contact-button">Contact us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <div style="position: relative; height: 40px; width: 40px;">
+                <div style="position: absolute; width: 15px; height: 15px; background: linear-gradient(135deg, #8aff5f, #39ff14); transform: rotate(45deg); left: 0; top: 10px; border-radius: 3px;"></div>
+                <div style="position: absolute; width: 15px; height: 15px; background: linear-gradient(135deg, #ffde59, #ffa726); transform: rotate(45deg); left: 10px; top: 5px; border-radius: 3px;"></div>
+                <div style="position: absolute; width: 15px; height: 15px; background: linear-gradient(135deg, #ff5fa2, #ff0066); transform: rotate(45deg); left: 20px; top: 0; border-radius: 3px;"></div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <a href="https://www.incubatour.com/">Who we are</a>
+            <a href="https://www.incubatour.com/">Services</a>
+            <a href="https://www.incubatour.com/">Congress</a>
+            <a href="https://www.incubatour.com/">Resources</a>
+            <a href="https://www.incubatour.com/">Contact</a>
+        </div>
+        <div class="copyright">© 2025 INCUBATOUR</div>
+        <div class="social-links">
+            <a href="#" class="social-icon">f</a>
+            <a href="#" class="social-icon">X</a>
+            <a href="#" class="social-icon">📷</a>
+        </div>
+    </footer>
+</body>
+</html>

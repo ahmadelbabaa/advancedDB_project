@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Request Access</title>
+  <style>
+    body {
+      background-color: #cb568f;
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 40px 0;
+    }
+    .form-container {
+      background-color: black;
+      color: white;
+      max-width: 700px;
+      margin: auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .form-container img {
+      display: block;
+      max-width: 200px;
+      margin: 0 auto 30px;
+      transition: transform 0.3s ease;
+    }
+    .form-container img:hover {
+      transform: scale(1.05);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .btn-submit {
+      background: linear-gradient(to right, #ec4899, #6366f1);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .btn-submit:hover {
+      background: linear-gradient(to right, #db2777, #4f46e5);
+    }
+    .required-star {
+      color: red;
+    }
+    .form-section {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <a href="https://otabr.pythonanywhere.com/">
+      <img src="{% static 'images/incubator_logo.webp' %}" alt="Incubatour Logo">
+    </a>
+    <h1>Interested in gaining access to calls?</h1>
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="form-section">
+        <h2>👤 Client Info</h2>
+
+        <label for="name">Full Name <span class="required-star">*</span></label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="position">Position <span class="required-star">*</span></label>
+        <input type="text" id="position" name="position" required>
+
+        <label for="gender">Gender <span class="required-star">*</span></label>
+        <select id="gender" name="gender" required>
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="email">Email <span class="required-star">*</span></label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number <span class="required-star">*</span></label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <div class="form-section">
+        <h2>🏢 Organization Info</h2>
+
+        <label for="organization_name">Organization Name <span class="required-star">*</span></label>
+        <input type="text" id="organization_name" name="organization_name" required list="org-list">
+        <datalist id="org-list">
+          {% for org in existing_orgs %}
+            <option value="{{ org }}">
+          {% endfor %}
+        </datalist>
+
+        <label for="type_of_organization">Type of Organization <span class="required-star">*</span></label>
+        <input type="text" id="type_of_organization" name="type_of_organization" required>
+
+        <label for="sector">Sector <span class="required-star">*</span></label>
+            <select id="sector" name="sector" required>
+             <option value="">Select Sector</option>
+             <option value="Tourism">Tourism</option>
+             <option value="Culture">Culture</option>
+             <option value="Sustainability">Sustainability</option>
+             <option value="Education">Education</option>
+            </select>
+
+        <label for="country_of_operation">Country of Operation <span class="required-star">*</span></label>
+        <input type="text" id="country_of_operation" name="country_of_operation" required>
+
+        <label for="organization_size">Organization Size (# of employees)</label>
+        <input type="number" id="organization_size" name="organization_size">
+
+        <label for="revenue_size">Revenue Size</label>
+        <input type="number" id="revenue_size" name="revenue_size">
+
+        <label for="website_url">Website URL</label>
+        <input type="url" id="website_url" name="website_url">
+
+        <label for="social_media">Social Media Handle</label>
+        <input type="text" id="social_media" name="social_media">
+      </div>
+
+      <button type="submit" class="btn-submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

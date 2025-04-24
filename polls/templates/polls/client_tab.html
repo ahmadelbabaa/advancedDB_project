@@ -1,0 +1,122 @@
+<h1>Clients</h1>
+
+<!-- Add new client -->
+<form method="post" style="margin-bottom: 12px;">
+  {% csrf_token %}
+  <button type="submit" name="action" value="add_client" class="btn btn-primary">
+    <i class="fa fa-plus" style="margin-right:4px;"></i> Add New Client
+  </button>
+</form>
+
+<!-- Search and Filters -->
+<form method="get" style="margin-bottom: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+  <input type="hidden" name="tab" value="clients">
+
+  <input type="text" name="q" placeholder="Search clients..." value="{{ query }}" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; flex: 1 1 180px;">
+
+  <select name="sector" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <option value="">All Sectors</option>
+    {% for code, label in sector_choices %}
+      <option value="{{ code }}" {% if code == selected_sector %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="status" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <option value="">All Statuses</option>
+    {% for code, label in status_choices %}
+      <option value="{{ code }}" {% if code == selected_status %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="organization" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <option value="">All Organizations</option>
+    {% for org in organizations %}
+      <option value="{{ org.id }}" {% if org.id|stringformat:"s" == selected_org %}selected{% endif %}>{{ org.organization_name }}</option>
+    {% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-primary" style="height: 38px;">Filter</button>
+</form>
+
+<form method="post">
+  {% csrf_token %}
+  <table>
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Position</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Organization</th>
+        <th>Sector</th>
+        <th>Status</th>
+        <th>Last Updated</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for client in clients %}
+      <tr>
+        <td><input type="text" name="name" value="{{ client.name }}"></td>
+        <td><input type="text" name="position" value="{{ client.position }}"></td>
+        <td><input type="email" name="email" value="{{ client.email }}"></td>
+        <td><input type="text" name="phone" value="{{ client.phone_number }}"></td>
+
+        <td>
+          <select name="organization">
+            {% for org in organizations %}
+              <option value="{{ org.id }}" {% if org.id == client.organization.id %}selected{% endif %}>{{ org.organization_name }}</option>
+            {% endfor %}
+          </select>
+        </td>
+
+        <td>
+          <select name="sector">
+            {% for code, label in sector_choices %}
+              <option value="{{ code }}" {% if client.sector_set.first.sector == code %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </td>
+
+        <td>
+          <select name="status">
+            {% for code, label in status_choices %}
+              <option value="{{ code }}" {% if client.status_set.first.status == code %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </td>
+
+        <td style="font-size: 0.85rem; white-space: nowrap;">
+          {{ client.status_set.first.time|date:"m/d/y | H:i" }}
+        </td>
+
+        <td class="actions" style="display: flex; flex-direction: column; gap: 6px; min-width: 80px;">
+          <!-- Save button -->
+          <button type="submit" name="action" value="update_client"
+            class="btn btn-primary btn-match"
+            style="padding: 4px 8px; font-size: 0.75rem; height: auto;">
+            <input type="hidden" name="client_id" value="{{ client.id }}">
+            Save
+          </button>
+
+          <!-- Delete button -->
+          <button type="submit" name="action" value="delete_client"
+            class="btn btn-danger btn-match"
+            style="padding: 4px 8px; font-size: 0.75rem; height: auto; background-color: #ef4444; color: white;"
+            onmouseover="this.style.backgroundColor='#dc2626'; this.style.color='white';"
+            onmouseout="this.style.backgroundColor='#ef4444'; this.style.color='white';">
+            <input type="hidden" name="client_id" value="{{ client.id }}">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="9" style="text-align:center; color:#718096; padding:20px;">
+          No clients yet.
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</form>

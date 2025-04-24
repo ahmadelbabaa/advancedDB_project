@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      background: #cb568f;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #000;
+      border-radius: 12px;
+      padding: 40px;
+      width: 400px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .login-container img {
+      max-width: 180px;
+      margin-bottom: 40px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    label {
+      text-align: left;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1.1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: linear-gradient(to right, #ec4899, #6366f1);
+      border: none;
+      color: white;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .forgot-password {
+      margin-top: 14px;
+    }
+
+    .forgot-password a {
+      color: #e2e8f0;
+      text-decoration: underline;
+      font-size: 0.9rem;
+    }
+
+    .forgot-password a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="{% static 'images/incubator_logo.webp' %}" alt="Incubatour Logo">
+
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label for="id_username">Username:</label>
+        {{ form.username }}
+      </div>
+
+      <div>
+        <label for="id_password">Password:</label>
+        {{ form.password }}
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="forgot-password">
+      <a href="#">I forgot my password</a>
+    </div>
+  </div>
+</body>
+</html>
